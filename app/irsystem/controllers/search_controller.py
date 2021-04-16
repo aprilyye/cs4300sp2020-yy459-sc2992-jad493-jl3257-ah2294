@@ -1,4 +1,4 @@
-from . import *  
+from . import *
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 
@@ -7,6 +7,8 @@ net_id = "April Ye yy459, Alan Huang ah2294, Geena Lee jl3257, Samuel Chen sc299
 
 @irsystem.route('/', methods=['GET'])
 def search():
+	df = getdata()
+	print(df['price'][1])
 	query = request.args.get('search')
 	if not query:
 		data = []

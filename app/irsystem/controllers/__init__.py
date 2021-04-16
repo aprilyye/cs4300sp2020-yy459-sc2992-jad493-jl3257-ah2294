@@ -26,3 +26,13 @@ from app.irsystem import irsystem
 # Import module models
 from app.accounts.models.user import *
 from app.accounts.models.session import *
+import pandas as pd
+import numpy as np
+print('loading data...')
+data = pd.read_csv("app/irsystem/controllers/listings.csv", encoding = "ISO-8859-1")
+data['price'] = data['price'].replace('[\$,]', '', regex=True).astype(float)
+data['description'] = data['description'].replace(np.nan, '', regex=True)
+print('data loaded')
+
+def getdata():
+  return data
