@@ -5,7 +5,6 @@ from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 project_name = "Best Food Finder"
 net_id = "April Ye yy459, Alan Huang ah2294, Geena Lee jl3257, Samuel Chen sc2992, Jack Ding jad493"
 
-
 def similarity_result(data, keyword):
 	'''
 	@data : dataframe with  pruned data
@@ -25,7 +24,7 @@ def similarity_result(data, keyword):
 	return data.iloc[ranked_i]
 
 
-@irsystem.route('/', methods=['GET'])
+@irsystem.route('/search', methods=['GET'])
 def search():
 	df = getdata()
 	print(df['price'][1])
@@ -36,6 +35,7 @@ def search():
 	max_night = request.args.get('maximum_night')
 	bedrooms = request.args.get('bedrooms')
 	query = request.args.get('keyword')
+
 	pruned_data = df[(df.maximum_nights < max_night) & (df.price <= price) & (df.bedrooms <= bedrooms)]
 
 	#Todo peform similairty result
@@ -49,3 +49,7 @@ def search():
 		output_message = "Your search: " + query
 		data = range(5)
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
+
+@irsystem.route('/', methods=['GET'])
+def home_page():
+	return render_template('search.html', name=project_name, netid=net_id)
