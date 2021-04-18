@@ -24,7 +24,7 @@ def similarity_result(data, keyword):
 	return data.iloc[ranked_i]
 
 
-@irsystem.route('/', methods=['GET'])
+@irsystem.route('/search', methods=['GET'])
 def search():
 	df = getdata()
 	print(df['price'][1])
@@ -35,11 +35,6 @@ def search():
 	max_night = request.args.get('maximum_night')
 	bedrooms = request.args.get('bedrooms')
 	query = request.args.get('keyword')
-
-	if not query:
-		data = []
-		output_message = ''
-		return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 
 	pruned_data = df[(df.maximum_nights < max_night) & (df.price <= price) & (df.bedrooms <= bedrooms)]
 
@@ -54,3 +49,7 @@ def search():
 		output_message = "Your search: " + query
 		data = range(5)
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
+
+@irsystem.route('/', methods=['GET'])
+def home_page():
+	return render_template('search.html', name=project_name, netid=net_id)
