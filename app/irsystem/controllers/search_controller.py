@@ -35,9 +35,10 @@ def search():
 
 	if not query:
 		data = []
-		output_message = ''
+		output_message = 'No result'
 		return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 	print(query)
+
 
 	price = float(request.args.get('budget'))
 	nbh = request.args.get('neighborhood')
@@ -46,9 +47,10 @@ def search():
 	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms <= bedrooms)]
 
 	#Todo peform similairty result
-	res_list = similarity_result(pruned_data, keyword=query.split())
+	res_list = similarity_result(pruned_data, keyword=query.split())[:5]
 
-	print(len(res_list))
+	print(res_list)
+
 
 	if not query:
 		data = []
@@ -56,4 +58,5 @@ def search():
 	else:
 		output_message = "Your search: " + query
 		data = range(5)
-	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
+		print(res_list.values.tolist())
+	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=res_list.values.tolist())
