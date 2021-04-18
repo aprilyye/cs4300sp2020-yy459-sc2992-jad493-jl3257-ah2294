@@ -31,17 +31,24 @@ def search():
 
 	#Todo: so far i am not sure how the query will be passed in and how many will be passed so i just put some dummy value
 
-	price = request.args.get('price')
-	max_night = request.args.get('maximum_night')
-	bedrooms = request.args.get('bedrooms')
 	query = request.args.get('keywords')
+
+	if not query:
+		data = []
+		output_message = ''
+		return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 	print(query)
 
-	pruned_data = df[(df.maximum_nights < max_night) & (df.price <= price) & (df.bedrooms <= bedrooms)]
+	price = float(request.args.get('budget'))
+	nbh = request.args.get('neighborhood')
+	bedrooms = 1
+
+	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms <= bedrooms)]
 
 	#Todo peform similairty result
 	res_list = similarity_result(pruned_data, keyword=query.split())
 
+	print(len(res_list))
 
 	if not query:
 		data = []
@@ -50,7 +57,3 @@ def search():
 		output_message = "Your search: " + query
 		data = range(5)
 	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
-
-@irsystem.route('/', methods=['GET'])
-def home_page():
-	return render_template('search.html', name=project_name, netid=net_id)
