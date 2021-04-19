@@ -43,7 +43,7 @@ def search():
 	nbh = request.args.get('neighborhood')
 	bedrooms = float(request.args.get('bed'))
 	bathrooms = float(request.args.get('bath'))
-	time = float(request.args.get('time'))
+	time = float(request.args.get('time')) * 30
 
 	print(bedrooms)
 	print(bathrooms)
