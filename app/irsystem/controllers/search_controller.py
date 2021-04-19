@@ -49,7 +49,7 @@ def search():
 	print(bathrooms)
 	print(time)
 
-	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms <= bedrooms) & (df.bathrooms <= bathrooms) & (df.maximum_nights >= time)]
+	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
 
 	#Todo peform similairty result
 	res_list = similarity_result(pruned_data, keyword=query.lower().split(','))[:5]
