@@ -65,7 +65,14 @@ def search():
 		data = range(5)
 		print(res_list.values.tolist())
 
-	return render_template('results.html', name=project_name, netid=net_id, output_message=output_message, data=str(res_list.values.tolist()))
+    # description
+    # neighbourhood_cleansed
+    # bathrooms
+    # bedrooms
+    # price
+    # maximum_nights
+
+	return render_template('results.html', name=project_name, netid=net_id, output_message=output_message, data=res_list.values.tolist())
 
 @irsystem.route('/', methods=['GET'])
 def home():
