@@ -24,10 +24,10 @@ def similarity_result(data, keyword):
 	return data.iloc[ranked_i]
 
 
-@irsystem.route('/', methods=['GET'])
+@irsystem.route('/search', methods=['GET'])
 def search():
+	print("in search")
 	df = getdata()
-	print(df['price'][1])
 
 	#Todo: so far i am not sure how the query will be passed in and how many will be passed so i just put some dummy value
 
@@ -38,7 +38,6 @@ def search():
 		output_message = 'No result'
 		return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 	print(query)
-
 
 	price = float(request.args.get('budget'))
 	nbh = request.args.get('neighborhood')
@@ -65,4 +64,10 @@ def search():
 		output_message = "Your search: " + query
 		data = range(5)
 		print(res_list.values.tolist())
-	return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=res_list.values.tolist())
+
+	return render_template('results.html', name=project_name, netid=net_id, output_message=output_message, data=str(res_list.values.tolist()))
+
+@irsystem.route('/', methods=['GET'])
+def home():
+	print("in home")
+	return render_template('search.html', name=project_name, netid=net_id)
