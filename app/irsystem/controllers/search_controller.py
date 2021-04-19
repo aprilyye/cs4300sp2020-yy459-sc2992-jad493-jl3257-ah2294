@@ -13,7 +13,7 @@ def similarity_result(data, keyword):
 	rank = []
 	for i, text in enumerate(data['description']):
 		#perform jaccard
-		tokens = text.split()
+		tokens = text.lower().split()
 		intersection = len(list(set(tokens).intersection(set(keyword))))
 		union = (len(tokens) + len(keyword)) - intersection
 		rank.append((float(intersection) / union, i))
@@ -52,7 +52,7 @@ def search():
 	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms <= bedrooms) & (df.bathrooms <= bathrooms) & (df.maximum_nights >= time)]
 
 	#Todo peform similairty result
-	res_list = similarity_result(pruned_data, keyword=query.split(','))[:5]
+	res_list = similarity_result(pruned_data, keyword=query.lower().split(','))[:5]
 
 	print(res_list)
 
