@@ -22,6 +22,7 @@
       html, body {
       min-height: 100%;
       }
+
       body, div, form, input, select {
       padding: 0;
       margin: 0;
@@ -31,6 +32,7 @@
       color: white;
       line-height: 22px;
       }
+
       h1, h4 {
       margin: 15px 0 4px;
       font-weight: 400;
@@ -658,7 +660,14 @@
         </datalist>
         <input  autoComplete="on" name = "neighborhood" list="suggestions"/>
 
+        <h4>Length of stay (months)<span>*</span></h4>
+          <input type="number" value = "3" name="time" min="1" max = "100000">
 
+        <h4>Number of bedrooms (min)<span>*</span></h4>
+          <input type="number" value = "1" name="bed" min="1" max = "20">
+
+        <h4>Number of bathrooms (min)<span>*</span></h4>
+          <input type="number" value = "1" name="bath" min="1" max = "20">
 
         <div class="btn-block">
           <button type="submit" href="/">Find Listing</button>

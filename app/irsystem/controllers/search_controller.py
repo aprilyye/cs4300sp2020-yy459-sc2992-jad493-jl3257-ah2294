@@ -42,7 +42,13 @@ def search():
 
 	price = float(request.args.get('budget'))
 	nbh = request.args.get('neighborhood')
-	bedrooms = 1
+	bedrooms = float(request.args.get('bed'))
+	bathrooms = float(request.args.get('bath'))
+	time = float(request.args.get('time'))
+
+	print(bedrooms)
+	print(bathrooms)
+	print(time)
 
 	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms <= bedrooms)]
 
