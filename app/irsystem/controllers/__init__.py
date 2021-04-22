@@ -29,8 +29,8 @@ from app.accounts.models.session import *
 import pandas as pd
 import numpy as np
 print('loading data...')
-features = ['description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights']
-data = pd.read_csv("app/irsystem/controllers/listings.csv", encoding = "ISO-8859-1")
+features = ['id','name', 'description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights']
+data = pd.read_csv("app/irsystem/controllers/cleaned_list.csv", encoding = "ISO-8859-1")
 data['bathrooms_text'] = data['bathrooms_text'].replace('Half-bath', '0.5 baths')
 data['bathrooms_text'] = data['bathrooms_text'].replace('Private half-bath', '0.5 baths')
 data['bathrooms_text'] = data['bathrooms_text'].replace('Shared half-bath', '0.5 baths')
@@ -39,7 +39,16 @@ data['bathrooms_text'] = data['bathrooms_text'].replace(np.nan, '0', regex=True)
 data['bathrooms'] = data.bathrooms_text.str.split().str.get(0).astype(float)
 data['price'] = data['price'].replace('[\$,]', '', regex=True).astype(float)
 data['description'] = data['description'].replace(np.nan, '', regex=True)
+
 print('data loaded')
 
+
+print('load reviews...')
+
+review = pd.read_csv("app/irsystem/controllers/pruned_review.csv")
+print('review  loaded')
 def getdata():
   return data[features]
+
+def getreview():
+    return review
