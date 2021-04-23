@@ -9,10 +9,10 @@ from nltk.stem import PorterStemmer
 from nltk.sentiment import SentimentIntensityAnalyzer
 
 # import sentiment analysis and stemming
-sia = SentimentIntensityAnalyzer()
+#sia = SentimentIntensityAnalyzer()
 ps = PorterStemmer()
 
-print(sia.polarity_scores('i like this place'))
+#print(sia.polarity_scores('i like this place'))
 
 def similarity_result(data, keyword):
 	'''
