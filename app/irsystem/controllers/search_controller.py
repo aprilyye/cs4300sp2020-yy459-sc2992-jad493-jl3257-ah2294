@@ -6,7 +6,13 @@ project_name = "Best Food Finder"
 net_id = "April Ye yy459, Alan Huang ah2294, Geena Lee jl3257, Samuel Chen sc2992, Jack Ding jad493"
 features = ['name','description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights']
 from nltk.stem import PorterStemmer
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+# import sentiment analysis and stemming
+sia = SentimentIntensityAnalyzer()
 ps = PorterStemmer()
+
+print(sia.polarity_scores('i like this place'))
 
 def similarity_result(data, keyword):
 	'''
