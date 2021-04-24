@@ -10,6 +10,12 @@
     <title>Find your perfect stay</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="src/tagcomplete.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+            crossorigin="anonymous"></script>
+    <script src="src/tagcomplete.js"></script>
 
 
 
@@ -24,6 +30,7 @@
       }
 
       body, div, form, input, select {
+
       padding: 0;
       margin: 0;
       outline: none;
@@ -56,12 +63,16 @@
       padding: 3px;
       }
       form {
-      width: 100%;
+      background: rgba(47, 81, 143, 0.5);
+      color: white;
+      width: 50%;
       padding: 20px;
-      box-shadow: 0 2px 5px #ccc;
+      text-align: center;
+      border-radius: 10px;
       }
       input {
-      width: calc(100% - 10px);
+      width: 100%;
+      opacity: 1;
       padding: 5px;
       border: 1px solid #ccc;
       border-radius: 3px;
@@ -179,12 +190,16 @@
     <div class="testbox">
       <form action="/search">
         <h1>Find Your Perfect Stay</h1>
-        <h4>Keywords (separate keywords with commas)</h4>
+        <h4>Keywords (separate keywords with commas)<span>*</span></h4>
         <input type="text" name="keywords" placeholder="cozy, spacious" />
 
 
         <h4>Max Budget<span>*</span></h4>
           <input type="number" value = "50" name="budget" min="1" max = "100000">
+
+
+
+
 
 
         <h4>Desired Neighborhoods<span>*</span></h4>
@@ -410,10 +425,20 @@
 <option value="Woodrow" selected>Woodrow</option>
 <option value="Woodside" selected>Woodside</option>
         </datalist>
-        <input  autoComplete="on" name = "neighborhood" list="suggestions"/>
+        <input autoComplete="on" name = "neighborhood" list="suggestions" />
 
-        <h4>Length of stay (months)<span>*</span></h4>
-          <input type="number" value = "3" name="time" min="1" max = "100000">
+        <div style="width: 50%; float:left; padding-bottom:20px;">
+           <label><h4>Start Date:<span>*</span></h4></label>
+           <input type="date" name="start_date">
+        </div>
+
+         <div style="width: 50%; float:right; padding-bottom:20px;">
+            <label><h4>End Date:<span>*</span></h4></label>
+            <input type="date" name="end_date">
+         </div>
+
+
+
 
         <h4>Number of bedrooms (min)<span>*</span></h4>
           <input type="number" value = "1" name="bed" min="1" max = "20">
