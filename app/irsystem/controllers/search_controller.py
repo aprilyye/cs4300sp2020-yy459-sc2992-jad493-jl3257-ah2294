@@ -1,6 +1,7 @@
 from . import *
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
+from datetime import datetime
 import string
 project_name = "Best Food Finder"
 net_id = "April Ye yy459, Alan Huang ah2294, Geena Lee jl3257, Samuel Chen sc2992, Jack Ding jad493"
@@ -82,7 +83,10 @@ def search():
 	nbh = request.args.get('neighborhood')
 	bedrooms = float(request.args.get('bed'))
 	bathrooms = float(request.args.get('bath'))
-	time = float(request.args.get('time')) * 30
+	start_date = datetime.strptime(request.args.get('start_date'), '%Y-%m-%d')
+	end_date = datetime.strptime(request.args.get('end_date'), '%Y-%m-%d')
+	time = (end_date - start_date).days
+	
 
 	print(bedrooms)
 	print(bathrooms)
