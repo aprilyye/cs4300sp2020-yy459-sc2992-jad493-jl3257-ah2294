@@ -2,6 +2,7 @@ from . import *
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 from datetime import datetime
+from PyDictionary import PyDictionary
 import string
 project_name = "Best Food Finder"
 net_id = "April Ye yy459, Alan Huang ah2294, Geena Lee jl3257, Samuel Chen sc2992, Jack Ding jad493"
@@ -20,7 +21,13 @@ def similarity_result(data, keyword):
 	@data : dataframe with  pruned data
 	@keyword : list of token in keyword
 	'''
-	keyword = [ps.stem(w) for w in keyword]
+	keywordsWithSynonyms = []
+	dictionary=PyDictionary(keyword)
+	for i, w in enumerate(keyword):
+		synonyms = dictionary.getSynonyms()[i]
+		keywordsWithSynonyms.append(w)
+		keywordsWithSynonyms += synonyms[w]
+	keywordsWithSynonyms = [ps.stem(w) for w in keywordsWithSynonyms]
 	reviews = getreview()
 	rank = []
 	for i, text in enumerate(data['description']):
@@ -31,8 +38,9 @@ def similarity_result(data, keyword):
 		tokens = tokens.lower().split()
 		# stem the token
 		tokens = [ps.stem(w) for w in tokens]
-		intersection = len(list(set(tokens).intersection(set(keyword))))
-		union = (len(tokens) + len(keyword)) - intersection
+		
+		intersection = len(list(set(tokens).intersection(set(keywordsWithSynonyms))))
+		union = (len(tokens) + len(keywordsWithSynonyms)) - intersection
 		scores += float(intersection) / union
 
 		list_id = data.iloc[i]['id']
@@ -41,8 +49,8 @@ def similarity_result(data, keyword):
 			tokens = rev.strip(string.punctuation)
 			tokens = tokens.lower().split()
 			tokens = [ps.stem(w) for w in tokens]
-			intersection = len(list(set(tokens).intersection(set(keyword))))
-			union = (len(tokens) + len(keyword)) - intersection
+			intersection = len(list(set(tokens).intersection(set(keywordsWithSynonyms))))
+			union = (len(tokens) + len(keywordsWithSynonyms)) - intersection
 			scores += float(intersection) / union
 
 		rank.append((scores, i))
@@ -97,7 +105,7 @@ def search():
 	#Todo peform similairty result
 	res_list = similarity_result(pruned_data, keyword=query.lower().split(','))[:5]
 	res_list = getReviews(res_list)
-	print(res_list['comments'])
+	#print(res_list['comments'])
 
 	res_list = res_list[features]
 	#print(res_list)
