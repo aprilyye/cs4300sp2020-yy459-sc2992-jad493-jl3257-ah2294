@@ -85,7 +85,9 @@ def search():
 	if not query:
 		data = []
 		output_message = 'No result'
-		return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
+		return render_template('no_results.html')
+
+		#return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 	print(query)
 
 	price = float(request.args.get('budget'))
