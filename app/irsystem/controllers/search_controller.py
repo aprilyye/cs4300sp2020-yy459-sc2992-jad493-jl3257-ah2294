@@ -112,6 +112,7 @@ def search():
 	print(bedrooms)
 	print(bathrooms)
 	print(time)
+	price /= time
 
 	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
 	print(pruned_data)
