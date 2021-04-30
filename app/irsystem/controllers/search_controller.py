@@ -4,9 +4,10 @@ from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 from datetime import datetime
 from PyDictionary import PyDictionary
 import string
+import pandas as pd
 project_name = "Best Food Finder"
 net_id = "April Ye yy459, Alan Huang ah2294, Geena Lee jl3257, Samuel Chen sc2992, Jack Ding jad493"
-features = ['name','description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights']
+features = ['name','description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights', 'amenities', 'picture_url', 'listing_url']
 from nltk.stem import PorterStemmer
 from nltk.sentiment import SentimentIntensityAnalyzer
 
@@ -38,7 +39,7 @@ def similarity_result(data, keyword):
 		tokens = tokens.lower().split()
 		# stem the token
 		tokens = [ps.stem(w) for w in tokens]
-		
+
 		intersection = len(list(set(tokens).intersection(set(keywordsWithSynonyms))))
 		union = (len(tokens) + len(keywordsWithSynonyms)) - intersection
 		scores += float(intersection) / union
@@ -94,20 +95,29 @@ def search():
 	start_date = datetime.strptime(request.args.get('start_date'), '%Y-%m-%d')
 	end_date = datetime.strptime(request.args.get('end_date'), '%Y-%m-%d')
 	time = (end_date - start_date).days
-	
+
 
 	print(bedrooms)
 	print(bathrooms)
 	print(time)
 
 	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
-
+	print(pruned_data)
 	#Todo peform similairty result
 	res_list = similarity_result(pruned_data, keyword=query.lower().split(','))[:5]
+	#print(res_list)
 	res_list = getReviews(res_list)
+	#print(res_list)
 	#print(res_list['comments'])
 
+
 	res_list = res_list[features]
+	#res_list['maximum_nights'] = pd.to_numeric(res_list['maximum_nights'], errors='coerce')
+	#res_list['bedrooms'] = pd.to_numeric(res_list['bedrooms'], errors='coerce')
+	#res_list['bedrooms'].astype(int)
+	#res_list['bathrooms'] = pd.to_numeric(res_list['bathrooms'], errors='coerce')
+	#res_list['price'] = pd.to_numeric(res_list['price'], errors='coerce')
+
 	#print(res_list)
 
 

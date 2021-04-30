@@ -5,19 +5,33 @@
        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+       <style>
+       .card p{
+          margin: 0px;
+       }
+       </style>
    </head>
-   <body>
-       <div class="card-deck">
-       {% for x in data %}
-       <div class="card" style="width: 18rem;">
-         <h5 class="card-header">{{x[1]}}</h5>
-         <div class="card-body">
 
-           <p class="card-text">Bathrooms: {{x[2]}}</p>
-           <p class="card-text">Bedrooms: {{x[3]}}</p>
-           <p class="card-text">Price: ${{x[4]}}</p>
-           <p class="card-text">Maximum Nights: {{x[5]}}</p>
-           <p class="card-title">{{x[0]}}</p>
+   <body>
+       <div class="card-deck" style = "display: block">
+
+       {% for x in data %}
+
+       <div class="card">
+         <h2>{{x[0]}}</h2>
+         <div class="card-body">
+            <div style = "width: 30%; float: left">
+               <img src = '{{x[8]}}' width = '90%' style = "max-height:200px;" >
+            </div>
+            <div style = "width: 70%; float: right;">
+               <p class="card-text"><b>Bedrooms:</b> {{x[4]}}</p>
+              <p class="card-text"><b>Bathrooms:</b> {{x[3]}}</p>
+              <p class="card-text"><b>Price:</b> ${{x[5]}} / night</p>
+              <p class="card-text"><b>Maximum Nights:</b> {{x[6]}}</p>
+              <a href = '{{x[9]}}'>Click here to view listing</a>
+              <p class="card-text"><b>Description:</b> {{x[1]}}</p>
+
+           </div>
          </div>
        </div>
       {% endfor %}
