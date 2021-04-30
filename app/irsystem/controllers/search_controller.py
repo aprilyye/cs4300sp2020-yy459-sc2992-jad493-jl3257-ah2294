@@ -45,6 +45,16 @@ def similarity_result(data, keyword):
 		scores += float(intersection) / union
 
 		list_id = data.iloc[i]['id']
+
+		#jaccard on amenities
+		amenities = data.iloc[i]['amenities']
+		amenities = amenities.strip(string.punctuation)
+		amenities = amenities.lower().split()
+		amenities= [ps.stem(w) for w in amenities]
+		intersection = len(list(set(amenities).intersection(set(keywordsWithSynonyms))))
+		union = (len(amenities) + len(keywordsWithSynonyms)) - intersection
+		scores += float(intersection) / union
+
 		# compute the similairty score for review also
 		for rev in reviews[reviews.listing_id == list_id]['comments']:
 			tokens = rev.strip(string.punctuation)
