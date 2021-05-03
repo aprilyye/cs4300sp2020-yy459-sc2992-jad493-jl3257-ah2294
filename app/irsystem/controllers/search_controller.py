@@ -27,7 +27,8 @@ def similarity_result(data, keyword):
 	for i, w in enumerate(keyword):
 		synonyms = dictionary.getSynonyms()[i]
 		keywordsWithSynonyms.append(w)
-		keywordsWithSynonyms += synonyms[w]
+		if not synonyms is None:
+			keywordsWithSynonyms += synonyms[w]
 	keywordsWithSynonyms = [ps.stem(w) for w in keywordsWithSynonyms]
 	reviews = getreview()
 	rank = []
@@ -42,6 +43,8 @@ def similarity_result(data, keyword):
 
 		intersection = len(list(set(tokens).intersection(set(keywordsWithSynonyms))))
 		union = (len(tokens) + len(keywordsWithSynonyms)) - intersection
+		if (union == 0):
+			print("union is 0")
 		scores += float(intersection) / union
 
 		list_id = data.iloc[i]['id']
