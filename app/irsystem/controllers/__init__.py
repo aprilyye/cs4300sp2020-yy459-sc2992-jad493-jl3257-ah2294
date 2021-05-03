@@ -28,6 +28,7 @@ from app.accounts.models.user import *
 from app.accounts.models.session import *
 import pandas as pd
 import numpy as np
+import re
 print('loading data...')
 features = ['id','name', 'description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights', 'amenities', 'picture_url', 'listing_url']
 data = pd.read_csv("app/irsystem/controllers/cleaned_list.csv", encoding = "ISO-8859-1")
@@ -39,6 +40,12 @@ data['bathrooms_text'] = data['bathrooms_text'].replace(np.nan, '0', regex=True)
 data['bathrooms'] = data.bathrooms_text.str.split().str.get(0).astype(float)
 data['price'] = data['price'].replace('[\$,]', '', regex=True).astype(float)
 data['description'] = data['description'].replace(np.nan, '', regex=True)
+
+data['description'] = data['description'].replace(np.nan, '', regex=True)
+data['description'] = data['description'].apply(lambda x: re.sub(r'[^\x00-\x7F]+','', x))
+
+data['name'] = data['name'].replace(np.nan, '', regex=True)
+data['name'] = data['name'].apply(lambda x: re.sub(r'[^\x00-\x7F]+','', x))
 
 print('data loaded')
 
