@@ -114,14 +114,14 @@ def search():
 	end_date = datetime.strptime(request.args.get('end_date'), '%Y-%m-%d')
 	time = (end_date - start_date).days
 
-	if not nbh:
-		nbh = loaded_model.predict([[bathrooms,bedrooms,price,time]])[0]
-		print(nbh)
+
 	print(bedrooms)
 	print(bathrooms)
 	print(time)
 	price /= time
-
+	if not nbh:
+		nbh = loaded_model.predict([[bathrooms,bedrooms,price,time]])[0]
+		print(nbh)
 	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
 	if (len(pruned_data) == 0):
 		pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
