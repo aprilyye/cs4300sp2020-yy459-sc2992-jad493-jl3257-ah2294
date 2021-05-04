@@ -195,7 +195,7 @@
 
 
         <h4>Max Budget (for entire stay)<span>*</span></h4>
-          <input type="number" value = "50" name="budget" min="1" max = "100000">
+          <input type="number" value = "50" name="budget" required min="1" max = "100000">
 
 
 
@@ -425,24 +425,24 @@
 <option value="Woodrow" selected>Woodrow</option>
 <option value="Woodside" selected>Woodside</option>
         </datalist>
-        <input autoComplete="on" name = "neighborhood" list="suggestions" />
+        <input autoComplete="on" name = "neighborhood" required list="suggestions" />
 
         <div style="width: 50%; float:left; padding-bottom:20px;">
            <label><h4>Start Date:<span>*</span></h4></label>
-           <input type="date" name="start_date">
+           <input type="date" required name="start_date">
         </div>
 
          <div style="width: 50%; float:right; padding-bottom:20px;">
             <label><h4>End Date:<span>*</span></h4></label>
-            <input type="date" name="end_date">
+            <input type="date" required name="end_date">
          </div>
 
 
         <h4>Number of bedrooms (min)<span>*</span></h4>
-          <input type="number" value = "1" name="bed" min="1" max = "20">
+          <input type="number" value = "1" required name="bed" min="1" max = "20">
 
         <h4>Number of bathrooms (min)<span>*</span></h4>
-          <input type="number" value = "1" name="bath" min="1" max = "20">
+          <input type="number" value = "1" required name="bath" min="1" max = "20">
 
         <div class="btn-block">
           <button type="submit" href="/">Find Listing</button>
