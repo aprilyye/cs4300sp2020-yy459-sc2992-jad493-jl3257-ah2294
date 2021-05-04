@@ -10,9 +10,15 @@
           margin: 0px;
        }
        </style>
+
+
+
+
    </head>
 
    <body>
+
+
        <div class="card-deck" style = "display: block">
 
        {% for x in data %}
@@ -30,12 +36,44 @@
               <p class="card-text"><b>Bathrooms:</b> {{x[3]}}</p>
               <p class="card-text"><b>Price:</b> ${{x[5]}} / night</p>
               <p class="card-text"><b>Maximum Nights:</b> {{x[6]}}</p>
+              <button type = "button" class = "collapsible" style = "margin-top: 10px;"> View Description </button>
+              <div style = "display:none;">
               <p class="card-text"><b>Description:</b> {{x[1]}}</p>
+           </div>
+           <br>
+           <button type = "button" class = "collapsible" style = "margin-top: 10px;"> View User Reviews </button>
+           <div style = "display:none;">
+             <b>Reviews:</b>
+             {%for y in x[11]%}
+             <br>
+            <p class="card-text">{{y}}</p>
+            {% endfor %}
+
+       </div>
 
            </div>
          </div>
        </div>
       {% endfor %}
+
+      <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
+
+      </script>
+
   </div>
       <form action="/">
       <div class="btn-block">
