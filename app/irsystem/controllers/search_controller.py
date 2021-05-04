@@ -7,7 +7,7 @@ import string
 import pandas as pd
 project_name = "Best Food Finder"
 net_id = "April Ye yy459, Alan Huang ah2294, Geena Lee jl3257, Samuel Chen sc2992, Jack Ding jad493"
-features = ['name','description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights', 'amenities', 'picture_url', 'listing_url', 'scores']
+features = ['name','description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights', 'amenities', 'picture_url', 'listing_url', 'scores','comments']
 from nltk.stem import PorterStemmer
 from nltk.sentiment import SentimentIntensityAnalyzer
 import pickle
@@ -123,8 +123,10 @@ def search():
 	price /= time
 
 	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
-	print(pruned_data)
-	#Todo peform similairty result
+	if (len(pruned_data) == 0):
+		pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
+		#Todo return page with message saying that inital query has no result so trying query without price
+
 	res_list, scores= similarity_result(pruned_data, keyword=query.lower().split(','))
 	res_list = res_list[:5]
 	scores = scores[:5]
@@ -132,10 +134,14 @@ def search():
 	#print(res_list)
 	res_list = getReviews(res_list)
 	#print(res_list)
-	#print(res_list['comments'])
+	print(res_list['comments'])
 
 	print(res_list['scores'])
 	res_list = res_list[features]
+	# if jaccard is 0
+	if(len(res_list) != 0 and scores[0] == 0):
+		res_list = res_list.sort_values('price')
+
 	#res_list['maximum_nights'] = pd.to_numeric(res_list['maximum_nights'], errors='coerce')
 	#res_list['bedrooms'] = pd.to_numeric(res_list['bedrooms'], errors='coerce')
 	#res_list['bedrooms'].astype(int)
