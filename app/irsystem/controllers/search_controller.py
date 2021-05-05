@@ -12,6 +12,7 @@ features = ['name','description', 'neighbourhood_cleansed', 'bathrooms','bedroom
 from nltk.stem import PorterStemmer
 from nltk.sentiment import SentimentIntensityAnalyzer
 import pickle
+import ast
 # import sentiment analysis and stemming
 #sia = SentimentIntensityAnalyzer()
 ps = PorterStemmer()
@@ -140,10 +141,10 @@ def search():
 	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
 	if (len(pruned_data) == 0):
 		pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
-		output_message = 'No result for your query, but you might like these in the'
+		output_message = 'No results for your query, but you might like these!'
 		if (len(pruned_data) == 0):
 			pruned_data = df[(df.neighbourhood_cleansed == nbh)]
-			output_message = 'No result for your query, but you might like these in the'
+			output_message = 'No results for your query, but you might like these!'
 
 	res_list, scores= similarity_result(pruned_data, keyword=query.lower().split(','))
 	res_list = res_list[:5]
@@ -163,6 +164,8 @@ def search():
 	if(len(res_list) != 0 and scores[0] == 0):
 		res_list = res_list.sort_values('price')
 
+	res_list["amenities"]  = res_list["amenities"].apply(ast.literal_eval)
+
 	#res_list['maximum_nights'] = pd.to_numeric(res_list['maximum_nights'], errors='coerce')
 	#res_list['bedrooms'] = pd.to_numeric(res_list['bedrooms'], errors='coerce')
 	#res_list['bedrooms'].astype(int)
@@ -179,9 +182,9 @@ def search():
     # price
     # maximum_nights
 	if(len(res_list) == 0):
-		output_message = 'No result for your query'
+		output_message = 'No results for your query'
 	if(knn == True):
-		output_message += ' recommended neighborhood: ' + nbh
+		output_message += ' Recommended neighborhood: ' + nbh
 
 	return render_template('results.html', name=project_name, netid=net_id, output_message=output_message, data=res_list.values.tolist())
 

@@ -29,6 +29,7 @@ from app.accounts.models.session import *
 import pandas as pd
 import numpy as np
 import re
+
 print('loading data...')
 features = ['id','name', 'description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights', 'amenities', 'picture_url', 'listing_url']
 data = pd.read_csv("app/irsystem/controllers/cleaned_list.csv", encoding = "ISO-8859-1")
@@ -51,7 +52,6 @@ data['name'] = data['name'].replace(np.nan, '', regex=True)
 data['name'] = data['name'].apply(lambda x: re.sub(r'[^\x00-\x7F]+','', x))
 
 print('data loaded')
-
 
 print('load reviews...')
 
