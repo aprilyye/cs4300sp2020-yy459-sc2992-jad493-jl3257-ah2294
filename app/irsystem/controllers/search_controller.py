@@ -114,14 +114,15 @@ def search():
 	bathrooms = float(request.args.get('bath'))
 	start_date = datetime.strptime(request.args.get('start_date'), '%Y-%m-%d')
 	end_date = datetime.strptime(request.args.get('end_date'), '%Y-%m-%d')
+	today_date = datetime.strptime(date.today().strftime('%Y-%m-%d'), '%Y-%m-%d')
 	time = (end_date - start_date).days
-
+	start_date_check = (start_date - today_date).days
 	print(start_date)
-	print(date.today())
-	if (start_date > end_date):
-		print("here")
-		#TODO: automatically return no results page
-		#print("here") -- correctly reaches
+	print('------')
+	print(today_date)
+	if (time < 0 or start_date_check < 0):
+		output_message = 'invalid date'
+		return render_template('no_results.html', output_message=output_message)
 
 	# print(bedrooms)
 	# print(bathrooms)
