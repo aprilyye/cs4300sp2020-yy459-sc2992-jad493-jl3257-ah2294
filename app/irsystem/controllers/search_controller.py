@@ -121,7 +121,11 @@ def search():
 	print('------')
 	print(today_date)
 	if (time < 0 or start_date_check < 0):
-		output_message = 'invalid date'
+		output_message = "The date you inputted was invalid,"
+		if start_date_check < 0:
+			output_message += " start date must be after today's date."
+		elif time < 0:
+			output_message += " end date must be after start date."
 		return render_template('no_results.html', output_message=output_message)
 
 	# print(bedrooms)
@@ -136,15 +140,18 @@ def search():
 	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
 	if (len(pruned_data) == 0):
 		pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
-		output_message = 'No result for your query, but you might like these'
-	if (len(pruned_data) == 0):
-		pruned_data = df[(df.neighbourhood_cleansed == nbh)]
-		output_message = 'No result for your query, but you might like these'
+		output_message = 'No result for your query, but you might like these in the'
+		if (len(pruned_data) == 0):
+			pruned_data = df[(df.neighbourhood_cleansed == nbh)]
+			output_message = 'No result for your query, but you might like these in the'
 
 	res_list, scores= similarity_result(pruned_data, keyword=query.lower().split(','))
 	res_list = res_list[:5]
 	scores = scores[:5]
 	res_list['scores'] = scores
+	if len(scores) > 0:
+		res_list['scores'] = res_list['scores'].round(3)
+
 	#print(res_list)
 	res_list = getReviews(res_list)
 	#print(res_list)
@@ -174,7 +181,7 @@ def search():
 	if(len(res_list) == 0):
 		output_message = 'No result for your query'
 	if(knn == True):
-		output_message += ' Recommend neighborhood: ' + nbh
+		output_message += ' recommended neighborhood: ' + nbh
 
 	return render_template('results.html', name=project_name, netid=net_id, output_message=output_message, data=res_list.values.tolist())
 

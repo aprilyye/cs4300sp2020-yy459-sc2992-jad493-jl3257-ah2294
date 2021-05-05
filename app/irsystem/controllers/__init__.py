@@ -38,7 +38,10 @@ data['bathrooms_text'] = data['bathrooms_text'].replace('Shared half-bath', '0.5
 
 data['bathrooms_text'] = data['bathrooms_text'].replace(np.nan, '0', regex=True)
 data['bathrooms'] = data.bathrooms_text.str.split().str.get(0).astype(float)
-data['price'] = data['price'].replace('[\$,]', '', regex=True).astype(float)
+data['bedrooms'] = data['bedrooms'].replace(np.nan, '0', regex=True)
+data['bedrooms'] = data.bedrooms.astype(int)
+
+data['price'] = data['price'].replace('[\$,]', '', regex=True).astype(float).round(2)
 data['description'] = data['description'].replace(np.nan, '', regex=True)
 
 data['description'] = data['description'].replace(np.nan, '', regex=True)

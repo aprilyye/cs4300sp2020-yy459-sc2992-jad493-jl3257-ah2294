@@ -11,6 +11,15 @@ body {
   border-radius: 15px;
 }
 
+#output {
+  font-size: 15px;
+  color: #FF5A5F;
+}
+
+h2 {
+  font-size: 12px;
+  color: #807c7e;
+}
 .card-text {
   padding-top: 5px;
 }
