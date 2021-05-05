@@ -106,6 +106,7 @@ def search():
 
 		#return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 	print(query)
+	output_message = "Your search: " + query
 
 	price = float(request.args.get('budget'))
 	nbh = request.args.get('neighborhood')
@@ -126,13 +127,18 @@ def search():
 	# print(bathrooms)
 	# print(time)
 	price /= time
+	knn = False
 	if not nbh:
 		nbh = loaded_model.predict([[bathrooms,bedrooms,price,time]])[0]
-		print(nbh)
+		output_message = ''
+		knn = True
 	pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.price <= price) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
 	if (len(pruned_data) == 0):
 		pruned_data = df[(df.neighbourhood_cleansed == nbh) & (df.bedrooms >= bedrooms) & (df.bathrooms >= bathrooms) & (df.maximum_nights >= time)]
-		#Todo return page with message saying that inital query has no result so trying query without price
+		output_message = 'No result for your query, but you might like these'
+	if (len(pruned_data) == 0):
+		pruned_data = df[(df.neighbourhood_cleansed == nbh)]
+		output_message = 'No result for your query, but you might like these'
 
 	res_list, scores= similarity_result(pruned_data, keyword=query.lower().split(','))
 	res_list = res_list[:5]
@@ -158,14 +164,16 @@ def search():
 	#print(res_list)
 
 
-	output_message = "Your search: " + query
-
     # description
     # neighbourhood_cleansed
     # bathrooms
     # bedrooms
     # price
     # maximum_nights
+	if(len(res_list) == 0):
+		output_message = 'No result for your query'
+	if(knn == True):
+		output_message += ' Recommend neighborhood: ' + nbh
 
 	return render_template('results.html', name=project_name, netid=net_id, output_message=output_message, data=res_list.values.tolist())
 
