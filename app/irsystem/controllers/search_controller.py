@@ -2,6 +2,7 @@ from . import *
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 from datetime import datetime
+from datetime import date
 from PyDictionary import PyDictionary
 import string
 import pandas as pd
@@ -114,10 +115,16 @@ def search():
 	end_date = datetime.strptime(request.args.get('end_date'), '%Y-%m-%d')
 	time = (end_date - start_date).days
 
+	print(start_date)
+	print(date.today())
+	if (start_date > end_date):
+		print("here")
+		#TODO: automatically return no results page
+		#print("here") -- correctly reaches
 
-	print(bedrooms)
-	print(bathrooms)
-	print(time)
+	# print(bedrooms)
+	# print(bathrooms)
+	# print(time)
 	price /= time
 	if not nbh:
 		nbh = loaded_model.predict([[bathrooms,bedrooms,price,time]])[0]

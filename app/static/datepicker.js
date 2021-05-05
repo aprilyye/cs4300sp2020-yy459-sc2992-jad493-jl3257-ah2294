@@ -36,7 +36,7 @@ var picker = {
     dp.appendChild(select);
 
     // (A4) YEAR SELECT
-    var yRange = 3; // Year range to show, I.E. from thisYear-yRange to thisYear+yRange
+    var yRange = 2; // Year range to show, I.E. from thisYear-yRange to thisYear+yRange
     select = document.createElement("select");
     select.classList.add("picker-y");
     for (var y = thisYear-yRange; y < thisYear+yRange; y++) {

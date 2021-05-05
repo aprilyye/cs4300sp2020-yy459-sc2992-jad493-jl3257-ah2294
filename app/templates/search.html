@@ -433,20 +433,20 @@
            <input type="date" required name="start_date">
         </div> -->
 
-        <!-- <div id="pick-inline"> -->
+        <div style="width: 50%; float:left; padding-bottom:20px;">
+           <label><h4>Start Date:<span>*</span></h4></label>
+           <input id="input-pop" type="date" name="start_date" required>
+           <script> document.getElementById('input-pop').valueAsDate = new Date();</script>
+        </div>
 
-          <div style="width: 50%; float:left; padding-bottom:20px;">
-             <label><h4>Start Date:<span>*</span></h4></label>
-             <input id="input-pop" type="text" placeholder="Click here to select date on calendar" required name="start_date">
-          </div>
 
-
-           <div style="width: 50%; float:right; padding-bottom:20px;">
-              <label><h4>End Date:<span>*</span></h4></label>
-              <input id="input-pop2" type="text" placeholder="Click here to select date on calendar" required name="end_date">
-           </div>
-
-         <!-- </div> -->
+         <div style="width: 50%; float:right; padding-bottom:20px;">
+            <label><h4>End Date:<span>*</span></h4></label>
+            <input id="input-pop2" type="date" name="end_date" required>
+            <script>
+              document.getElementById('input-pop2').valueAsDate = new Date(new Date().setDate(new Date().getDate() + 30));
+            </script>
+         </div>
 
          <script>
 
@@ -462,8 +462,9 @@
              // container: "pick-inline",
              // disab/leday: []
            });
-
          });
+
+          // document.getElementById(test").innerHTML = d;
          </script>
         <h4>Number of bedrooms (min)<span>*</span></h4>
           <input type="number" value = "1" required name="bed" min="1" max = "20">
