@@ -23,10 +23,12 @@ body {
 
 .title {
   text-align: center;
+  padding-bottom: 10%;
 }
 
 .card-text2 {
   background-color: #807c7e;
+  text-size-adjust: none;
 }
 
 h1 {
@@ -38,7 +40,8 @@ h2 {
 }
 
 h4 {
-  margin-left: 10px;
+  margin-left: 5%;
+  margin-top: 5%;
 }
 .card-text {
   /* padding-top: 5px; */
