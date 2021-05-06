@@ -12,7 +12,7 @@ features = ['name','description', 'neighbourhood_cleansed', 'bathrooms','bedroom
 from nltk.stem import PorterStemmer
 from nltk.sentiment import SentimentIntensityAnalyzer
 import pickle
-import ast
+
 # import sentiment analysis and stemming
 #sia = SentimentIntensityAnalyzer()
 ps = PorterStemmer()
@@ -55,9 +55,7 @@ def similarity_result(data, keyword):
 
 		#jaccard on amenities
 		amenities = data.iloc[i]['amenities']
-		amenities = amenities.strip(string.punctuation)
-		amenities = amenities.lower().split()
-		amenities= [ps.stem(w) for w in amenities]
+		amenities= [ps.stem(w.lower()) for w in amenities]
 		intersection = len(list(set(amenities).intersection(set(keywordsWithSynonyms))))
 		union = (len(amenities) + len(keywordsWithSynonyms)) - intersection
 		scores += float(intersection) / union
@@ -164,7 +162,6 @@ def search():
 	if(len(res_list) != 0 and scores[0] == 0):
 		res_list = res_list.sort_values('price')
 
-	res_list["amenities"]  = res_list["amenities"].apply(ast.literal_eval)
 
 	#res_list['maximum_nights'] = pd.to_numeric(res_list['maximum_nights'], errors='coerce')
 	#res_list['bedrooms'] = pd.to_numeric(res_list['bedrooms'], errors='coerce')

@@ -29,6 +29,7 @@ from app.accounts.models.session import *
 import pandas as pd
 import numpy as np
 import re
+import ast
 
 print('loading data...')
 features = ['id','name', 'description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights', 'amenities', 'picture_url', 'listing_url']
@@ -50,6 +51,7 @@ data['description'] = data['description'].apply(lambda x: re.sub(r'[^\x00-\x7F]+
 
 data['name'] = data['name'].replace(np.nan, '', regex=True)
 data['name'] = data['name'].apply(lambda x: re.sub(r'[^\x00-\x7F]+','', x))
+data['amenities'] = data['amenities'].apply(ast.literal_eval)
 
 print('data loaded')
 
