@@ -27,6 +27,7 @@ def similarity_result(data, keyword):
 	@data : dataframe with  pruned data
 	@keyword : list of token in keyword
 	'''
+	keyword = [w.lstrip() for w in keyword]
 	keywordsWithSynonyms = []
 	dictionary=PyDictionary(keyword)
 	for i, w in enumerate(keyword):
