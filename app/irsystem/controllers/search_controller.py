@@ -90,6 +90,7 @@ def getReviews(data):
 	return data
 
 def getAmen(data, query):
+	query = [w.lstrip() for w in query]
 	lists = []
 	for i in range(len(data)):
 		list_amen = []
@@ -175,7 +176,7 @@ def search():
 		res_list = res_list.sort_values('price')
 	res_list = getAmen(res_list, query.lower().split(','))
 	res_list = res_list[features]
-
+	#
 	#res_list['maximum_nights'] = pd.to_numeric(res_list['maximum_nights'], errors='coerce')
 	#res_list['bedrooms'] = pd.to_numeric(res_list['bedrooms'], errors='coerce')
 	#res_list['bedrooms'].astype(int)
