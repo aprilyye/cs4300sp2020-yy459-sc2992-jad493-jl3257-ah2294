@@ -51,12 +51,20 @@
            <br>
            <button type = "button" class = "collapsible btn" style = "margin-top: 5px; margin-bottom: 5px;"> View Amenities </button>
            <div style = "display:none;">
+             Matching amenities:
+             {% if x[12] | length == 0 %}
+                 <p>None</p>
+             {% else %}
+             {%for y in x[12]%}
+               <span class="card-text2" style = "background: #7cdea0;">{{y}}</span>
+             {% endfor %}
+             {% endif %}
+             <br>
+             Other amenities:
              {%for y in x[7]%}
-
              <!-- <div class="amenities"> -->
                  <span class="card-text2">{{y}}</span>
              <!-- </div> -->
-
               {% endfor %}
            </div>
            <br>

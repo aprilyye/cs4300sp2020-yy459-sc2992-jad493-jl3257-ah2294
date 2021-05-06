@@ -9,6 +9,7 @@ import pandas as pd
 project_name = "Best Food Finder"
 net_id = "April Ye yy459, Alan Huang ah2294, Geena Lee jl3257, Samuel Chen sc2992, Jack Ding jad493"
 features = ['name','description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights', 'amenities', 'picture_url', 'listing_url', 'scores','comments','amenities_match']
+#            0       1              2                         3            4        5       6                 7             8                9            10       11         12
 from nltk.stem import PorterStemmer
 from nltk.sentiment import SentimentIntensityAnalyzer
 import pickle
@@ -171,12 +172,18 @@ def search():
 	print(res_list['comments'])
 
 	print(res_list['scores'])
+
+
 	# if jaccard is 0
 	if(len(res_list) != 0 and scores[0] == 0):
 		res_list = res_list.sort_values('price')
 	res_list = getAmen(res_list, query.lower().split(','))
 	res_list = res_list[features]
-	#
+
+
+	for index, amen_list in res_list['amenities'].items():
+		res_list['amenities'][index] = list(set(amen_list).difference(set(res_list['amenities_match'][index])))
+
 	#res_list['maximum_nights'] = pd.to_numeric(res_list['maximum_nights'], errors='coerce')
 	#res_list['bedrooms'] = pd.to_numeric(res_list['bedrooms'], errors='coerce')
 	#res_list['bedrooms'].astype(int)
@@ -196,7 +203,6 @@ def search():
 		output_message = 'No results for your query'
 	if(knn == True):
 		output_message += ' Recommended neighborhood: ' + nbh
-
 	return render_template('results.html', name=project_name, netid=net_id, output_message=output_message, data=res_list.values.tolist())
 
 @irsystem.route('/', methods=['GET'])
