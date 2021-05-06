@@ -11,6 +11,24 @@ body {
   border-radius: 10px;
 }
 
+.amenities {
+
+}
+
+.card-text2 {
+    display:inline-block;
+    /* line-height: 40px; */
+    background: #d1d1d1;
+    margin: 5px 2px 5px 2px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    text-size-adjust: none;
+}
+
+.goback {
+    margin-top: 15px;
+}
+
 #output {
   font-size: 15px;
   color: #FF5A5F;
@@ -23,13 +41,9 @@ body {
 
 .title {
   text-align: center;
-  padding-bottom: 10%;
+  padding-bottom: 20px;
 }
 
-.card-text2 {
-  background-color: #807c7e;
-  text-size-adjust: none;
-}
 
 h1 {
   text-align: center;
@@ -40,8 +54,8 @@ h2 {
 }
 
 h4 {
-  margin-left: 5%;
-  margin-top: 5%;
+  margin-left: 20px;
+  margin-top: 20px;
 }
 .card-text {
   /* padding-top: 5px; */

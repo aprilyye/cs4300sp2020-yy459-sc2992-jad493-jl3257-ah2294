@@ -20,7 +20,7 @@
 
        <form action="/">
        <div>
-         <button class = "btn" type="submit" href="/">Go back</button>
+         <button class = "btn goback" type="submit" href="/">Go back</button>
        </div>
        <h1 class="title"> Long Term Stays in New York </h1>
        <h2 class="outputmsg">{{output_message}}</h2>
@@ -44,24 +44,29 @@
               <p class="card-text"><b>Price:</b> ${{x[5]}} / night</p>
               <p class="card-text"><b>Maximum Nights:</b> {{x[6]}}</p>
               <p class="card-text"><b>Calculated similarity score (if 0.0, results are sorted by price):</b> {{x[10]}}</p>
-              <button type = "button" class = "collapsible btn" style = "margin-top: 10px;"> View Description </button>
+              <button type = "button" class = "collapsible btn" style = "margin-top: 5px; margin-bottom: 7px;"> View Description </button>
               <div style = "display:none;">
               <p class="card-text">{{x[1]}}</p>
            </div>
            <br>
-           <button type = "button" class = "collapsible btn" style = "margin-top: 10px;"> View Amenities </button>
+           <button type = "button" class = "collapsible btn" style = "margin-top: 5px; margin-bottom: 5px;"> View Amenities </button>
            <div style = "display:none;">
              {%for y in x[7]%}
-              <p class="card-text2">{{y}}</p>
+
+             <!-- <div class="amenities"> -->
+                 <span class="card-text2">{{y}}</span>
+             <!-- </div> -->
+
               {% endfor %}
            </div>
            <br>
 
-           <button type = "button" class = "collapsible btn" style = "margin-top: 10px;"> View User Reviews </button>
+           <button type = "button" class = "collapsible btn" style = "margin-top: 5px; margin-bottom: 7px;"> View User Reviews </button>
            <div style = "display:none;">
              {%for y in x[11]%}
-             <br>
+
             <p class="card-text">{{y}}</p>
+            <br>
             {% endfor %}
            </div>
 
