@@ -109,10 +109,10 @@ def search():
 	print(query)
 	output_message = "Your search: " + query
 
-	price = float(request.args.get('budget'))
+	price = int(request.args.get('budget'))
 	nbh = request.args.get('neighborhood')
-	bedrooms = float(request.args.get('bed'))
-	bathrooms = float(request.args.get('bath'))
+	bedrooms = int(request.args.get('bed'))
+	bathrooms = int(request.args.get('bath'))
 	start_date = datetime.strptime(request.args.get('start_date'), '%Y-%m-%d')
 	end_date = datetime.strptime(request.args.get('end_date'), '%Y-%m-%d')
 	today_date = datetime.strptime(date.today().strftime('%Y-%m-%d'), '%Y-%m-%d')

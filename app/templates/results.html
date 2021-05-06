@@ -39,9 +39,9 @@
             </div>
             <div style = "width: 70%; float: right;">
               <p class="card-text"><b>Neighborhood:</b> {{x[2]}}</p>
-              <p class="card-text"><b>Bedrooms:</b> {{x[4]}}</p>
-              <p class="card-text"><b>Bathrooms:</b> {{x[3]}}</p>
-              <p class="card-text"><b>Price:</b> ${{x[5]}} / night</p>
+              <p class="card-text"><b>Bedrooms:</b> {{x[4] | int}}</p>
+              <p class="card-text"><b>Bathrooms:</b> {{x[3] | int}}</p>
+              <p class="card-text"><b>Price:</b> ${{x[5] | int}} / night</p>
               <p class="card-text"><b>Maximum Nights:</b> {{x[6]}}</p>
               <p class="card-text"><b>Calculated similarity score (if 0.0, results are sorted by price):</b> {{x[10]}}</p>
               <button type = "button" class = "collapsible btn" style = "margin-top: 5px; margin-bottom: 7px;"> View Description </button>
