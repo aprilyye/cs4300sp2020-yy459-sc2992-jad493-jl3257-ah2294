@@ -60,7 +60,7 @@ print('load reviews...')
 review = pd.read_csv("app/irsystem/controllers/pruned_review.csv")
 print('review  loaded')
 def getdata():
-  return data[features]
+  return data[features].copy()
 
 def getreview():
     return review
