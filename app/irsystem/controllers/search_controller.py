@@ -8,7 +8,7 @@ import string
 import pandas as pd
 project_name = "Best Food Finder"
 net_id = "April Ye yy459, Alan Huang ah2294, Geena Lee jl3257, Samuel Chen sc2992, Jack Ding jad493"
-features = ['name','description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights', 'amenities', 'picture_url', 'listing_url', 'scores','comments']
+features = ['name','description', 'neighbourhood_cleansed', 'bathrooms','bedrooms','price','maximum_nights', 'amenities', 'picture_url', 'listing_url', 'scores','comments','amenities_match']
 from nltk.stem import PorterStemmer
 from nltk.sentiment import SentimentIntensityAnalyzer
 import pickle
@@ -170,11 +170,11 @@ def search():
 	print(res_list['comments'])
 
 	print(res_list['scores'])
-	res_list = res_list[features]
 	# if jaccard is 0
 	if(len(res_list) != 0 and scores[0] == 0):
 		res_list = res_list.sort_values('price')
 	res_list = getAmen(res_list, query.lower().split(','))
+	res_list = res_list[features]
 
 	#res_list['maximum_nights'] = pd.to_numeric(res_list['maximum_nights'], errors='coerce')
 	#res_list['bedrooms'] = pd.to_numeric(res_list['bedrooms'], errors='coerce')
